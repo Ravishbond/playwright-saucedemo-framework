@@ -51,6 +51,7 @@ cp .env.example .env    # then fill in the values
 |---|---|---|
 | BUG-101 | Booking API | Accepts a negative `totalprice` (expected 400) |
 | BUG-102 | Web UI | Shows infinite "Loading..." when the API returns 500, with no error or retry |
+| BUG-104 | Web UI | For `problem_user`, the sort dropdown ignores the selection, snaps back to Name (A to Z), and the product order never changes |
 | Note | Booking API | DELETE returns 201 instead of 200/204; unauthenticated delete returns 403 instead of 401 |
 
 ## Author

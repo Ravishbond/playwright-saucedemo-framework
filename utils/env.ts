@@ -14,5 +14,6 @@ export const env = {
   apiUser:required('API_USER'),
   apiPassword:required('API_PASSWORD'),
   visualUser: required('VISUAL_USER'),
+  problemUser: required('PROBLEM_USER'),
 
 };

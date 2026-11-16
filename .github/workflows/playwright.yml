@@ -20,6 +20,7 @@ jobs:
       API_USER: ${{ secrets.API_USER }}
       API_PASSWORD: ${{ secrets.API_PASSWORD }}
       VISUAL_USER: ${{ secrets.VISUAL_USER }}
+      PROBLEM_USER: ${{ secrets.PROBLEM_USER }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
