@@ -1,4 +1,5 @@
 # Playwright + TypeScript Test Automation Framework
+![Playwright Tests](https://github.com/Ravishbond/playwright-saucedemo-framework/actions/workflows/playwright.yml/badge.svg)
 
 End-to-end UI and API test automation framework for [Sauce Demo](https://www.saucedemo.com) and [Restful Booker API](https://restful-booker.herokuapp.com), built with Playwright and TypeScript.
 
