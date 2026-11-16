@@ -63,6 +63,7 @@ test('cannot delete booking without token', async ({ request }) => {
    const getRes = await request.get(`/booking/${bookingid}`);
    expect(getRes.status()).toBe(200);
 });
+
    test('create booking with negative price', async ({ request }) => {
   // booking banao, phir BINA headers ke delete karo
   // kya status aana chahiye? 401 ya 403? Socho, phir actual dekho!

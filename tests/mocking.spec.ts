@@ -11,6 +11,7 @@ test('shows fruits from a fake supplier', async ({ page }) => {
   await page.goto('https://demo.playwright.dev/api-mocking');
   await expect(page.getByText('Strawberry')).toBeVisible();
 });
+
 test('adds a fruit to the real supplier list', async ({ page }) => {
   await page.route('*/**/api/v1/fruits', async (route) => {
     const response = await route.fetch();       // asli supplier se maal lo
@@ -22,6 +23,7 @@ test('adds a fruit to the real supplier list', async ({ page }) => {
   await page.goto('https://demo.playwright.dev/api-mocking');
   await expect(page.getByText('Litchi')).toBeVisible();
 });
+
 test('shows a friendly error when supplier fails', async ({ fruitsApiDown }) => {
   test.fail(true, 'BUG-102: Infinite "Loading..." when fruits API returns 500');
 

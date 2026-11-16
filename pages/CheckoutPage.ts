@@ -20,7 +20,7 @@ export class CheckoutPage {
   successMessage() {
      return this.page.getByText('Thank you for your order!');
 
-   
+   
   }
 
   errorMessage() {

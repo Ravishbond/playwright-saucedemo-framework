@@ -4,6 +4,7 @@ import customers from '../test-data/customers.json';
 
 test.describe('Without login', () => {
   test.use({ storageState: { cookies: [], origins: [] } });
+
 test('locked out user sees error', async ({loginPage}) => {
   // receptionist hire kiya
   await loginPage.open();                              // darwaza khola
@@ -14,7 +15,7 @@ test('locked out user sees error', async ({loginPage}) => {
 
 
 
- 
+ 
 test.describe('Logged-in customer', () => {
 
   test.beforeEach(async ({ inventory, page }) => {
@@ -31,6 +32,7 @@ test.describe('Logged-in customer', () => {
   // 5. CHECK: cart pe "1" dikhna chahiye
   await expect(inventory.cartBadge()).toHaveText('1');
 });
+
 test('full shopping trip', { tag: '@smoke' }, async ({ inventory, cart, checkout,page }) => {
   await test.step('Add 2 items to cart', async () => {
     await inventory.addToCart('sauce-labs-backpack');
@@ -50,6 +52,7 @@ test('full shopping trip', { tag: '@smoke' }, async ({ inventory, cart, checkout
     await expect(checkout.successMessage()).toBeVisible();
   });
 });
+
 for (const customer of customers.valid) {
   test(`checkout works for ${customer.firstName}`, async ({ inventory, cart, checkout }) => {
     await inventory.addToCart('sauce-labs-backpack');
@@ -69,6 +72,7 @@ for (const customer of customers.valid) {
      await expect(checkout.errorMessage()).toContainText(customer.expectedError);
 });
   }
+
   test('backpack is already in cart', async ({ cartWithBackpack }) => {
   await expect(cartWithBackpack.cartBadge()).toHaveText('1');
 });
