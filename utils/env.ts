@@ -12,6 +12,7 @@ export const env = {
   lockedUser: required('LOCKED_USER'),
   password: required('PASSWORD'),
   apiUser:required('API_USER'),
-  apiPassword:required('API_PASSWORD')
+  apiPassword:required('API_PASSWORD'),
+  visualUser: required('VISUAL_USER'),
 
 };
