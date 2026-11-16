@@ -1,14 +1,13 @@
 import { test as setup, expect } from '../fixtures/pages.fixture';
 import { env } from '../utils/env';
 
-const authFile = 'playwright/.auth/user.json';   // VIP pass yahan save hoga
+const authFile = 'playwright/.auth/user.json';
 
-setup('login once and save VIP pass', async ({ loginPage, page }) => {
+setup('login once and save storage state', async ({ loginPage, page }) => {
   await loginPage.open();
   await loginPage.login(env.standardUser, env.password);
   await expect(page).toHaveURL(/inventory/);
 
-  // 🎟️ Browser ki yaaddasht (cookies + storage) file mein save karo
+  // Save cookies and local storage for reuse by other projects
   await page.context().storageState({ path: authFile });
-  
 });

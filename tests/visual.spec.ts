@@ -2,6 +2,9 @@ import { test, expect } from '../fixtures/pages.fixture';
 import { env } from '../utils/env';
 
 test.describe('Visual checks', { tag: '@visual' }, () => {
+  // eslint-disable-next-line playwright/no-skipped-test -- intentional: baselines are chromium-only
+  test.skip(({ browserName }) => browserName !== 'chromium', 'Visual baselines exist for chromium only');
+
   test('inventory page looks right', async ({ inventory, page }) => {
     await inventory.open();
     await expect(page).toHaveScreenshot('inventory.png', { fullPage: true });

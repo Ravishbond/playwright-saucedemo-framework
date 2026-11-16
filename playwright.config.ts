@@ -1,95 +1,67 @@
 import { defineConfig, devices } from '@playwright/test';
-
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
 import dotenv from 'dotenv';
 import path from 'path';
+
+// Load environment variables from .env
 dotenv.config({ path: path.resolve(__dirname, '.env') });
+
+const authFile = 'playwright/.auth/user.json';
+
+// UI projects skip API tests. The seed file is only for Playwright Test Agents,
+// so it is excluded unless PW_AGENTS is set (the agent MCP server sets it in .mcp.json).
+const uiTestIgnore = process.env.PW_AGENTS ? [/api\/.*/] : [/api\/.*/, /seed\.spec\.ts/];
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
   testDir: './tests',
-  /* Run tests in files in parallel */
   fullyParallel: true,
-  /* Fail the build on CI if you accidentally left test.only in the source code. */
+  /* Fail the build on CI if test.only is left in the source code */
   forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
-  ['list'],
-  ['html', { open: 'never' }],
-  ['allure-playwright',{
-  environmentInfo: {
-    BASE_URL: process.env.BASE_URL,
-    Browser: 'chromium',
-    Node: process.version,
-  },
-}],
-],
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+    ['list'],
+    ['html', { open: 'never' }],
+    [
+      'allure-playwright',
+      {
+        environmentInfo: {
+          BASE_URL: process.env.BASE_URL,
+          Node: process.version,
+        },
+      },
+    ],
+  ],
   use: {
-    baseURL: process.env.BASE_URL,   // ✅ yahan, use ke andar
+    baseURL: process.env.BASE_URL,
     actionTimeout: 10_000,
     trace: 'retain-on-failure',
-  screenshot: 'only-on-failure',
-  video: 'retain-on-failure',
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
   },
 
-  /* Configure projects for major browsers */
   projects: [
     { name: 'setup', testMatch: /.*\.setup\.ts/ },
     { name: 'api', testMatch: /api\/.*\.spec\.ts/ },
     {
-    name: 'chromium',
-    testIgnore: /api\/.*/,
-    use: { ...devices['Desktop Chrome'], storageState: 'playwright/.auth/user.json' },
-    dependencies: ['setup'],
-  },
-  {
-    name: 'firefox',
-    testIgnore: /api\/.*/,
-    use: { ...devices['Desktop Firefox'], storageState: 'playwright/.auth/user.json' },
-    dependencies: ['setup'],
-  },
-  {
-    name: 'webkit',
-    testIgnore: /api\/.*/,
-    use: { ...devices['Desktop Safari'], storageState: 'playwright/.auth/user.json' },
-    dependencies: ['setup'],
-  },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
+      name: 'chromium',
+      testIgnore: uiTestIgnore,
+      use: { ...devices['Desktop Chrome'], storageState: authFile },
+      dependencies: ['setup'],
+    },
+    {
+      name: 'firefox',
+      testIgnore: uiTestIgnore,
+      use: { ...devices['Desktop Firefox'], storageState: authFile },
+      dependencies: ['setup'],
+    },
+    {
+      name: 'webkit',
+      testIgnore: uiTestIgnore,
+      use: { ...devices['Desktop Safari'], storageState: authFile },
+      dependencies: ['setup'],
+    },
   ],
-
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
 });

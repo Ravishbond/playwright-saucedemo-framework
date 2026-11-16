@@ -5,8 +5,23 @@
     { "firstName": "Amit", "lastName": "Kumar", "postalCode": "110001" }
   ],
   "invalid": [
-    { "firstName": "", "lastName": "Test", "postalCode": "282007", "expectedError": "First Name is required" },
-    { "firstName": "Ravish", "lastName": "", "postalCode": "282007", "expectedError": "Last Name is required" },
-    { "firstName": "Ravish", "lastName": "Test", "postalCode": "", "expectedError": "Postal Code is required" }
+    {
+      "firstName": "",
+      "lastName": "Test",
+      "postalCode": "282007",
+      "expectedError": "First Name is required"
+    },
+    {
+      "firstName": "Ravish",
+      "lastName": "",
+      "postalCode": "282007",
+      "expectedError": "Last Name is required"
+    },
+    {
+      "firstName": "Ravish",
+      "lastName": "Test",
+      "postalCode": "",
+      "expectedError": "Postal Code is required"
+    }
   ]
 }
