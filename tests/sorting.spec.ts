@@ -58,7 +58,7 @@ test.describe('Inventory sorting', { tag: '@sorting' }, () => {
 
   for (const { option, label, check } of cases) {
     test(`sort by ${label}`, async ({ inventory }) => {
-      // pehle ulta option chuno, taaki badlav asli ho (page already az pe khulta hai)
+      // Select a different option first so the change is real (page defaults to az)
       await inventory.selectSort(option === 'az' ? 'za' : 'az');
       await inventory.selectSort(option);
       await expect(inventory.sortDropdown()).toHaveValue(option);
@@ -102,10 +102,13 @@ test.describe('Inventory sorting', { tag: '@sorting' }, () => {
   });
 });
 
-// Alag describe: iska apna login hai, standard_user wala setup nahi chahiye
+// Separate describe: logs in as problem_user instead of using the standard_user storage state
 test.describe('Inventory sorting: problem_user', { tag: '@sorting' }, () => {
   test.use({ storageState: { cookies: [], origins: [] } });
-  test.fail(true, 'BUG-104: problem_user sort dropdown ignores selection, reverts to Name (A to Z) and list order never changes');
+  test.fail(
+    true,
+    'BUG-104: problem_user sort dropdown ignores selection, reverts to Name (A to Z) and list order never changes',
+  );
 
   test.beforeEach(async ({ loginPage, page }) => {
     await loginPage.open();

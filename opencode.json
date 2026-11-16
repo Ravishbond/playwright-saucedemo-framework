@@ -3,12 +3,11 @@
   "mcp": {
     "playwright-test": {
       "type": "local",
-      "command": [
-        "npx",
-        "playwright",
-        "run-test-mcp-server"
-      ],
-      "enabled": true
+      "command": ["npx", "playwright", "run-test-mcp-server"],
+      "enabled": true,
+      "environment": {
+        "PW_AGENTS": "1"
+      }
     }
   },
   "tools": {

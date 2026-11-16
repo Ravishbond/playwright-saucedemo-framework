@@ -7,13 +7,13 @@ async function inspect(page: Page) {
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'])
     .analyze();
 
-  // Report mein poori details attach karo
+  // Attach full violation details to the report
   await test.info().attach('axe-violations', {
     body: JSON.stringify(results.violations, null, 2),
     contentType: 'application/json',
   });
 
-  // Terminal mein padhne layak summary
+  // Print a readable summary to the console
   for (const v of results.violations) {
     console.log(`${v.impact} | ${v.id} | ${v.help} | ${v.nodes.length} element(s)`);
   }

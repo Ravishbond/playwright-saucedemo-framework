@@ -12,8 +12,8 @@ export default tseslint.config(
       parserOptions: { projectService: true, tsconfigRootDir: import.meta.dirname },
     },
     rules: {
-      '@typescript-eslint/no-floating-promises': 'error', // bhoola hua await pakdega
-      '@typescript-eslint/await-thenable': 'error',       // bina wajah ka await pakdega
+      '@typescript-eslint/no-floating-promises': 'error',
+      '@typescript-eslint/await-thenable': 'error',
     },
   },
   { ...playwright.configs['flat/recommended'], files: ['tests/**'] },

@@ -1,7 +1,7 @@
 {
-  "name": "swag-inspector",
+  "name": "playwright-saucedemo-framework",
   "version": "1.0.0",
-  "description": "",
+  "description": "End-to-end UI and API test automation framework for Sauce Demo and Restful Booker, built with Playwright and TypeScript.",
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
@@ -10,10 +10,12 @@
     "test:ui": "playwright test --ui",
     "report:allure": "allure generate allure-results --clean -o allure-report && allure open allure-report",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "keywords": [],
-  "author": "",
+  "author": "Ravish",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
@@ -26,6 +28,7 @@
     "dotenv": "^18.0.10",
     "eslint": "^10.15.0",
     "eslint-plugin-playwright": "^2.12.2",
+    "prettier": "^3.10.1",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.2"
   }
