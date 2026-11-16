@@ -66,6 +66,7 @@ test.describe('Inventory sorting', { tag: '@sorting' }, () => {
 
       const names = await inventory.productNames();
       const prices = await inventory.productPrices();
+      expect(prices.every(Number.isFinite)).toBe(true);
       expect(names).toHaveLength(6);
       expect(prices).toHaveLength(6);
       check(names, prices);
@@ -115,12 +116,12 @@ test.describe('Inventory sorting: problem_user', { tag: '@sorting' }, () => {
   for (const { option, label, check } of cases.filter((c) => c.option === 'za' || c.option === 'hilo')) {
     test(`problem_user sort by ${label}`, async ({ inventory }) => {
       await inventory.selectSort(option);
-      await expect(prices.every(Number.isFinite)).toBe(true);
       await expect(inventory.sortDropdown()).toHaveValue(option);
       await expect(inventory.activeSort()).toHaveText(label);
 
       const names = await inventory.productNames();
       const prices = await inventory.productPrices();
+      expect(prices.every(Number.isFinite)).toBe(true);
       expect(names).toHaveLength(6);
       check(names, prices);
     });
